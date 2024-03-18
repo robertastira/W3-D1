@@ -1,0 +1,49 @@
+1. SELECT * from clienti WHERE clienti.nome = 'mario';
+
+2. SELECT nome, cognome from clienti WHERE clienti.annodinascita = '1992';
+
+3. SELECT numerofattura from fatture WHERE fatture.iva = 20;
+
+4. SELECT * FROM prodotti WHERE EXTRACT(YEAR FROM dataattivazione) = 2017;
+
+5. SELECT * FROM fatture WHERE fatture.importo < 1000; OPPURE
+
+6. SELECT fatture.*, clienti.*
+FROM fatture
+JOIN clienti ON fatture.numerocliente = clienti.numerocliente
+WHERE fatture.importo < 1000;
+
+7. SELECT fatture.numerofattura, fatture.importo, fatture.iva, fatture.datafattura, fornitori.numerofornitore AS nome_fornitore
+FROM fatture
+JOIN fornitori ON fatture.numerofornitore = fornitori.numerofornitore;
+
+8. SELECT EXTRACT(YEAR FROM datafattura) AS anno, COUNT(numerofattura) 
+FROM fatture
+WHERE iva = 20
+GROUP BY anno;
+
+9. SELECT EXTRACT(YEAR FROM datafattura) AS anno,
+       COUNT(numerofattura) AS numero_fatture,
+       SUM(importo) AS somma_importi
+FROM fatture
+GROUP BY anno;
+
+
+10. NON FATTA
+
+11. NON FATTA
+
+12. SELECT clienti.regioneresidenza, SUM(fatture.importo) AS totale_importi
+FROM fatture
+JOIN clienti ON fatture.numerocliente = clienti.numerocliente
+GROUP BY clienti.regioneresidenza;
+
+13. SELECT COUNT(DISTINCT clienti.numerocliente) AS numero_clienti
+FROM clienti
+INNER JOIN fatture ON clienti.numerocliente = fatture.numerocliente
+WHERE clienti.annodinascita = 1992
+AND fatture.importo > 50;
+
+
+
+
